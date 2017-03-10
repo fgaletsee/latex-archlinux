@@ -24,3 +24,6 @@ RUN pacman --noconfirm -S sed which diffutils gawk gettext gzip tar file
 
 # LaTex
 RUN pacman --noconfirm -S git texlive-core texlive-bibtexextra texlive-fontsextra texlive-latexextra biber minted
+
+# Remove the cached packages
+RUN paccache -rk0
