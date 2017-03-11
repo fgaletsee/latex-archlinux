@@ -21,7 +21,7 @@ RUN reflector --verbose -l 200 -f 50 --sort rate | tee /etc/pacman.d/mirrorlist
 RUN pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file git
 
 # LaTex
-RUN pacman --noconfirm -S texlive-most biber minted
+RUN pacman --noconfirm -S texlive-most texlive-bin biber minted
 
 # Remove the cached packages
 RUN paccache -rk0
