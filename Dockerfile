@@ -23,5 +23,11 @@ RUN pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file gi
 # LaTex
 RUN pacman --noconfirm -S texlive-most biber minted
 
+# Redo Updating TeXLive filename database...
+RUN /usr/share/libalpm/scripts/mktexlsr
+
+# Redo Updating TeXLive font maps...
+RUN /usr/share/libalpm/scripts/texlive-updmap
+
 # Remove the cached packages
 RUN paccache -rk0
