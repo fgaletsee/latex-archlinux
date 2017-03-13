@@ -1,15 +1,7 @@
 FROM base/archlinux
 
 # Add mirrors 
-RUN printf ' \
-Server = https://archlinux.surlyjake.com/archlinux/$repo/os/$arch \n\
-Server = http://mirrors.evowise.com/archlinux/$repo/os/$arch \n\
-Server = http://mirror.rackspace.com/archlinux/$repo/os/$arch \n\
-Server = http://ftp.halifax.rwth-aachen.de/archlinux/$repo/os/$arch \n\
-Server = https://mirror.f4st.host/archlinux/$repo/os/$arch \n\
-Server = http://ftp.sh.cvut.cz/arch/$repo/os/$arch \n\
-Server = http://ftp.nluug.nl/os/Linux/distr/archlinux/$repo/os/$arch \n\
-' > /etc/pacman.d/mirrorlist
+COPY mirrorlist /etc/pacman.d/mirrorlist
 
 # Update package database
 RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync
@@ -23,16 +15,16 @@ RUN pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file gi
 # LaTex
 RUN pacman --noconfirm -S texlive-most biber minted
 
-# Redo Updating TeXLive filename database...
-RUN /usr/share/libalpm/scripts/mktexlsr
-
-# Redo Updating TeXLive font maps...
-RUN /usr/share/libalpm/scripts/texlive-updmap
-
-# Source perlbin to setup PATH in a non-interactive session
-RUN printf '\
-source /etc/profile.d/perlbin.sh\
-' > /root/.bashrc
+# Redo "Updating TeXLive databases"
+RUN pacman --noconfirm -S texlive-bin
 
 # Remove the cached packages
 RUN paccache -rk0
+
+# Source perlbin to setup PATH in a non-interactive session
+COPY bashrc /root/.bashrc
+
+# Set the entrypoint to a interactive shell 
+# This is needed as the /etc/provile file has to be executed since PATH has to
+# be modified for perl.
+ENTRYPOINT [/usr/bin/bash, -i]
