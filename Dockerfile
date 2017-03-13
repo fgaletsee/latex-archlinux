@@ -29,5 +29,10 @@ RUN /usr/share/libalpm/scripts/mktexlsr
 # Redo Updating TeXLive font maps...
 RUN /usr/share/libalpm/scripts/texlive-updmap
 
+# Source perlbin to setup PATH in a non-interactive session
+RUN printf '\
+source /etc/profile.d/perlbin.sh\
+' > /root/.bashrc
+
 # Remove the cached packages
 RUN paccache -rk0
