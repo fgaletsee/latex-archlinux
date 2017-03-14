@@ -12,16 +12,10 @@ COPY bashrc /root/.bashrc
 ENTRYPOINT ["/usr/bin/bash", "-ic"]
 
 
-RUN \ # Update package database
-    pacman --noconfirm -Syu archlinux-keyring reflector rsync && \
-    \ # Rank mirrors
+RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync && \
     reflector --verbose -l 200 -f 50 --sort rate | tee /etc/pacman.d/mirrorlist && \
-    \ # Dependencies
     pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file git && \
-    \ # LaTex
     pacman --noconfirm -S texlive-most biber minted && \
-    \ # Redo "Updating TeXLive databases"
-    pacman --noconfirm -S texlive-bin &&\
-    \ # Remove the cached packages
+    pacman --noconfirm -S texlive-bin && \
     paccache -rk0
 
