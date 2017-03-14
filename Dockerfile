@@ -27,4 +27,4 @@ COPY bashrc /root/.bashrc
 # Set the entrypoint to a interactive shell 
 # This is needed as the /etc/provile file has to be executed since PATH has to
 # be modified for perl.
-ENTRYPOINT [/usr/bin/bash, -i]
+ENTRYPOINT ["/usr/bin/bash", "-i"]
