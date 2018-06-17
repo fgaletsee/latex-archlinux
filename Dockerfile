@@ -1,8 +1,5 @@
 FROM base/archlinux
 
-# Add mirrors 
-COPY mirrorlist /etc/pacman.d/mirrorlist
-
 # Source perlbin to setup PATH in a non-interactive session
 COPY bashrc /root/.bashrc
 
@@ -12,7 +9,7 @@ COPY bashrc /root/.bashrc
 ENTRYPOINT ["/usr/bin/bash", "-ic"]
 
 
-RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync && \
+RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync pacman-contrib && \
     reflector --verbose -l 200 -f 50 --sort rate | tee /etc/pacman.d/mirrorlist && \
     pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file git && \
     pacman --noconfirm -S texlive-most biber minted && \
