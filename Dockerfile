@@ -14,5 +14,6 @@ RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync pacman-contrib && 
     pacman --noconfirm -S sed grep which diffutils gawk gettext gzip tar file git && \
     pacman --noconfirm -S texlive-most biber minted && \
     pacman --noconfirm -S texlive-bin && \
+    pacman --noconfirm -S inkscape && \
     paccache -rk0
 
