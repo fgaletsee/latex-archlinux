@@ -1,4 +1,4 @@
-FROM base/archlinux
+FROM archlinux
 
 # Source perlbin to setup PATH in a non-interactive session
 COPY bashrc /root/.bashrc
