@@ -16,4 +16,3 @@ RUN pacman --noconfirm -Syu archlinux-keyring reflector rsync pacman-contrib && 
     pacman --noconfirm -S texlive-bin && \
     pacman --noconfirm -S inkscape make  ghostscript curl&& \
     paccache -rk0
-
